@@ -6,18 +6,18 @@
         android:id="@+id/tab1"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@android:drawable/ic_dialog_email"
-        android:title="이메일" />
+        android:icon="@drawable/ic_baseline_toc_24"
+        android:title="CHECKLIST" />
     <item
         android:id="@+id/tab2"
         app:showAsAction="ifRoom"
-        android:icon="@android:drawable/ic_dialog_info"
-        android:title="정보" />
+        android:icon="@drawable/ic_baseline_today_24"
+        android:title="HOME" />
     <item
         android:id="@+id/tab3"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@android:drawable/ic_dialog_map"
-        android:title="위치" />
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="MYPAGE" />
 
 </menu>
