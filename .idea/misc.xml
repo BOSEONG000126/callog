@@ -4,7 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/hamea/AndroidStudioProjects/callog/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/drawable/item_color.xml" value="0.1" />
         <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/layout/activity_main.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/layout/fragment_1.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/layout/fragment_2.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/layout/fragment_3.xml" value="0.21666666666666667" />
       </map>
     </option>
   </component>
