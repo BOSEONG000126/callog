@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "965171538930",
+    "project_id": "callog-f2a45",
+    "storage_bucket": "callog-f2a45.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:965171538930:android:0e77c4c3e6bf125d1b196b",
+        "android_client_info": {
+          "package_name": "org.techtown.callog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "965171538930-41t2n70gc04kbmgdhukbs1ts78kecbod.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.techtown.callog",
+            "certificate_hash": "d6a61ce076828b970772282acb1e93bbd55b395f"
+          }
+        },
+        {
+          "client_id": "965171538930-gpn1rvu1gs9gpl4qtok5fmhu57fgi4pp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3TWwHlh9WdkfJzbA1-seoaMhDM2mNg6w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "965171538930-gpn1rvu1gs9gpl4qtok5fmhu57fgi4pp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

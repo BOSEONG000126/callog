@@ -2,6 +2,7 @@ package org.techtown.callog;
 
 import static android.app.PendingIntent.getActivity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -18,33 +19,40 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class LoginActivity extends AppCompatActivity {
 
-        int version = 1;
-        DatabaseOpenHelper helper;
-        SQLiteDatabase database;
+        private FirebaseAuth mFirebaseAuth; // 파이어베이스 인증
+        private DatabaseReference mDatabaseRef; //실시간 데이터베이스
 
-        EditText editID;
-        EditText editPassword;
+        EditText signemail;
+        EditText signpw;
         TextView sign;
         Button login;
 
-        String sql;
-        Cursor cursor;
+
 
         @Override
         protected void onPostCreate(Bundle savedInstanceState) {
             super.onPostCreate(savedInstanceState);
             setContentView(R.layout.activity_login);
 
-            editID = findViewById(R.id.editID);
-            editPassword = findViewById(R.id.editPassword);
+            mFirebaseAuth = FirebaseAuth.getInstance();
+            mDatabaseRef = FirebaseDatabase.getInstance().getReference("callog");
+
+            signemail = findViewById(R.id.editID);
+            signpw = findViewById(R.id.editPassword);
 
             sign = findViewById(R.id.signin);
             login = findViewById(R.id.loginbutton);
 
-            helper = new DatabaseOpenHelper(LoginActivity.this, DatabaseOpenHelper.tableName, null, version);
-            database = helper.getWritableDatabase();
+
 
             //페이지로 이동
             sign.setOnClickListener(v -> {
@@ -54,44 +62,21 @@ public class LoginActivity extends AppCompatActivity {
             login.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-                    String id = editID.getText().toString();
-                    String pw = editPassword.getText().toString();
+                    String email = signemail.getText().toString();
+                    String pw = signpw.getText().toString();
 
-                    if(id.length() == 0 || pw.length() == 0) {
-                        //아이디와 비밀번호는 필수 입력사항입니다.
-                        Toast toast = Toast.makeText(LoginActivity.this, "아이디와 비밀번호는 필수 입력사항입니다.", Toast.LENGTH_SHORT);
-                        toast.show();
-                        return;
-                    }
-
-                    sql = "SELECT id FROM "+ helper.tableName + " WHERE id = '" + id + "'";
-                    cursor = database.rawQuery(sql, null);
-
-                    if(cursor.getCount() != 1){
-                        //아이디가 틀렸습니다.
-                        Toast toast = Toast.makeText(LoginActivity.this, "존재하지 않는 아이디입니다.", Toast.LENGTH_SHORT);
-                        toast.show();
-                        return;
-                    }
-
-                    sql = "SELECT pw FROM "+ helper.tableName + " WHERE id = '" + id + "'";
-                    cursor = database.rawQuery(sql, null);
-
-                    cursor.moveToNext();
-                    if(!pw.equals(cursor.getString(0))){
-                        //비밀번호가 틀렸습니다.
-                        Toast toast = Toast.makeText(LoginActivity.this, "비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT);
-                        toast.show();
-                    }else{
-                        //로그인성공
-                        Toast toast = Toast.makeText(LoginActivity.this, "로그인성공", Toast.LENGTH_SHORT);
-                        toast.show();
-                        //인텐트 생성 및 호출
-                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                    cursor.close();
+                    mFirebaseAuth.signInWithEmailAndPassword(email,pw).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                Intent intent =new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }else{
+                                Toast.makeText(LoginActivity.this, "이메일과 비밀번호를 확인해주세요",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
             });
         }

@@ -1,5 +1,6 @@
 package org.techtown.callog;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,24 +12,31 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 public class SignupActivity extends AppCompatActivity {
 
-    int version = 1;
-    DatabaseOpenHelper helper;
-    SQLiteDatabase database;
+    private FirebaseAuth mFirebaseAuth; // 파이어베이스 인증
+    private DatabaseReference mDatabaseRef; //실시간 데이터베이스
 
     TextView back;
-    EditText signname,signid,signpw,singpw2,signemail,signbirthyear,signbirthdate,signbirthday;
+    EditText signname,signpw,singpw2,signemail,signbirth1,signbirth2,signbirth3; //회원가입 입력필드
     Button pwcheck, submit;
-
-    String sql;
-    Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("callog");
 
         //뒤로 가기 버튼
         back = findViewById(R.id.back);
@@ -36,16 +44,12 @@ public class SignupActivity extends AppCompatActivity {
 
         //기입 항목
         signname = findViewById(R.id.signName);
-        signid=findViewById(R.id.signID);
+        signemail=findViewById(R.id.signEmail);
         signpw=findViewById(R.id.signPW);
         singpw2=findViewById(R.id.signPW2);
-        signemail=findViewById(R.id.signmail);
-        signbirthyear=findViewById(R.id.signBirth);
-        signbirthdate=findViewById(R.id.signBirth2);
-        signbirthday=findViewById(R.id.signBirth3);
-
-        helper = new DatabaseOpenHelper(SignupActivity.this, DatabaseOpenHelper.tableName, null, version);
-        database = helper.getWritableDatabase();
+        signbirth1=findViewById(R.id.signBirth);
+        signbirth2=findViewById(R.id.signBirth2);
+        signbirth3=findViewById(R.id.signBirth3);
 
         //비밀번호 확인 버튼
         pwcheck = findViewById(R.id.pwcheckbutton);
@@ -62,37 +66,37 @@ public class SignupActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
-                String id = signid.getText().toString();
-                String pw = signpw.getText().toString();
+                String singemail = signemail.getText().toString();
+                String singpw = signpw.getText().toString();
                 String name = signname.getText().toString();
-                String birthyear = signbirthyear.getText().toString();
-                String birthdate = signbirthdate.getText().toString();
-                String birthday = signbirthday.getText().toString();
-                String email = signemail.getText().toString();
+                String birth1 = signbirth1.getText().toString();
+                String birth2 = signbirth2.getText().toString();
+                String birth3 = signbirth3.getText().toString();
 
-                if(id.length() == 0 || pw.length() == 0) {
-                    //아이디와 비밀번호는 필수 입력사항입니다.
-                    Toast toast = Toast.makeText(SignupActivity.this, "아이디와 비밀번호는 필수 입력사항입니다.", Toast.LENGTH_SHORT);
-                    toast.show();
-                    return;
-                }
+                //파이어베이스 진행
+                mFirebaseAuth.createUserWithEmailAndPassword(singemail,singpw).addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+                            UserAccount account =new UserAccount();
+                            account.setIdToken(firebaseUser.getUid());
+                            account.setEmailId(firebaseUser.getEmail());
+                            account.setName(name);
+                            account.setSignbirth1(birth1);
+                            account.setSignbirth2(birth2);
+                            account.setSignbirth3(birth3);
+                            account.setPassword(singpw);
 
-                sql = "SELECT id FROM "+ helper.tableName + " WHERE id = '" + id + "'";
-                cursor = database.rawQuery(sql, null);
+                            //setValue : 데이터베이스에 insert 행위
+                            mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
 
-                if(cursor.getCount() != 0){
-                    //존재하는 아이디입니다.
-                    Toast toast = Toast.makeText(SignupActivity.this, "존재하는 아이디입니다.", Toast.LENGTH_SHORT);
-                    toast.show();
-                }else{
-                    helper.insertUser(database,name,id,birthyear,birthdate,birthday,pw,email);
-                    Toast toast = Toast.makeText(SignupActivity.this, "가입이 완료되었습니다. 로그인을 해주세요.", Toast.LENGTH_SHORT);
-                    toast.show();
-                    Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
+                            Toast.makeText(SignupActivity.this, "회원가입에 성공하셨습니다",Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(SignupActivity.this, "회원가입에 실패하셨습니다",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
     }
