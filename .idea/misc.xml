@@ -4,19 +4,23 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/hamea/AndroidStudioProjects/callog/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/hamea/AndroidStudioProjects/callog/app/src/main/res/layout/activity_signup.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/hamea/AndroidStudioProjects/callog/app/src/main/res/layout/fragment_2.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/hamea/AndroidStudioProjects/callog/app/src/main/res/menu/menu_bottom.xml" value="0.1" />
         <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/drawable/ic_baseline_toc_24.xml" value="0.1" />
         <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/drawable/ic_baseline_today_24.xml" value="0.1" />
         <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/drawable/item_color.xml" value="0.1" />
+        <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/layout/activity_login.xml" value="0.21666666666666667" />
         <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/layout/activity_main.xml" value="0.21666666666666667" />
         <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/layout/activity_signup.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/layout/calendar_cell.xml" value="0.215625" />
+        <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/layout/calendar_diary.xml" value="0.215625" />
         <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/layout/fragment_1.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/layout/fragment_2.xml" value="0.21666666666666667" />
         <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/layout/fragment_3.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/layout/fragment_calendar_diary.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/layout/login.xml" value="0.21666666666666667" />
         <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/menu/menu_bottom.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/mipmap-anydpi-v26/ic_callog_icon.xml" value="0.1" />
+        <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/mipmap-anydpi-v26/ic_callog_icon_round.xml" value="0.1" />
       </map>
     </option>
   </component>

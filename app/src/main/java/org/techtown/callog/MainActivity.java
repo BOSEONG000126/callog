@@ -34,13 +34,13 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.tab1:
                         Toast.makeText(getApplicationContext(), "첫 번째 탭 선택됨", Toast.LENGTH_LONG).show();
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.container, homefragment).commit();
+                                .replace(R.id.container, checklistfragment).commit();
 
                         return true;
                     case R.id.tab2:
                         Toast.makeText(getApplicationContext(), "두 번째 탭 선택됨", Toast.LENGTH_LONG).show();
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.container, checklistfragment).commit();
+                                .replace(R.id.container, homefragment).commit();
 
                         return true;
                     case R.id.tab3:
