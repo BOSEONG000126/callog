@@ -1,10 +1,12 @@
 package org.techtown.callog;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
@@ -21,12 +23,29 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment implements CalendarAdapter.OnItemListener{
 
+    MainActivity mainActivity;
+
     private TextView monthYearText;  // 캘린더 년,월 표시
     private RecyclerView calendarRecyclerView;
     private LocalDate selectedDate;
     private TextView dateTextView;  // 일기장 프래그먼트 날짜 표시
     private Button backButton;
     private Button forwardButton;
+
+    // 메인 액티비티 위에 올린다.
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mainActivity = (MainActivity) getActivity();
+    }
+
+    // 메인 액티비티에서 내려온다.
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mainActivity = null;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -99,7 +118,7 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
 
     private String monthYearFromDate(LocalDate date)
     {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MMMM");
         return date.format(formatter);
     }
 
@@ -123,13 +142,25 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
     {
         if(!dayText.equals(""))
         {
-            String message = "Selected Date " + dayText + " " + monthYearFromDate(selectedDate);
-            //Intent intent = new Intent(this, diary.class);
-            //intent.putExtra("data", dayText); //'문자'라는 이름으로 main_text 전달
-            //startActivity(intent);
+            String message = "Selected Date " + monthYearFromDate(selectedDate) + " " + dayText + "일";
 
             Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
             //setContentView(R.layout.diary);
+
+
+            Bundle bundle = new Bundle(); // 번들을 통해 값 전달
+            String date = message.substring(19, 25);
+            bundle.putString("date", date);//번들에 넘길 값 저장
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+            DiaryFragment diaryFragment = new DiaryFragment();//프래그먼트2 선언
+            diaryFragment.setArguments(bundle);//번들을 프래그먼트2로 보낼 준비
+            transaction.replace(R.id.container, diaryFragment);
+            transaction.commit();
+
+            //((MainActivity)getActivity()).replaceFragment(DiaryFragment.newInstance());
+            //열심히 코드 썼는데 이거 아니여도 transaction.replace(R.id.container, diaryFragment); 로 화면 옮겨지네요,,
+
         }
     }
 
