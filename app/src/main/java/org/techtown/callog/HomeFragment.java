@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
@@ -19,7 +20,7 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment implements CalendarAdapter.OnItemListener{
+public class HomeFragment extends Fragment implements CalendarAdapter.OnItemListener {
 
     private TextView monthYearText;  // 캘린더 년,월 표시
     private RecyclerView calendarRecyclerView;
@@ -37,8 +38,7 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         return rootView;
     }
 
-    private void initWidgets(ViewGroup rootView)
-    {
+    private void initWidgets(ViewGroup rootView) {
         calendarRecyclerView = rootView.findViewById(R.id.calendarRecyclerView);
         monthYearText = rootView.findViewById(R.id.monthYearTV);
         backButton = rootView.findViewById(R.id.backButton);
@@ -61,8 +61,7 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         });
     }
 
-    private void setMonthView()
-    {
+    private void setMonthView() {
         monthYearText.setText(monthYearFromDate(selectedDate));
         ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
 
@@ -73,8 +72,7 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         calendarRecyclerView.setAdapter(calendarAdapter);
     }
 
-    private ArrayList<String> daysInMonthArray(LocalDate date)
-    {
+    private ArrayList<String> daysInMonthArray(LocalDate date) {
         ArrayList<String> daysInMonthArray = new ArrayList<>();
         YearMonth yearMonth = YearMonth.from(date);
 
@@ -83,54 +81,58 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         LocalDate firstOfMonth = selectedDate.withDayOfMonth(1);
         int dayOfWeek = firstOfMonth.getDayOfWeek().getValue();
 
-        for(int i = 1; i <= 42; i++)
-        {
-            if(i <= dayOfWeek || i > daysInMonth + dayOfWeek)
-            {
+        for (int i = 1; i <= 42; i++) {
+            if (i <= dayOfWeek || i > daysInMonth + dayOfWeek) {
                 daysInMonthArray.add("");
-            }
-            else
-            {
+            } else {
                 daysInMonthArray.add(String.valueOf(i - dayOfWeek));
             }
         }
-        return  daysInMonthArray;
+        return daysInMonthArray;
     }
 
-    private String monthYearFromDate(LocalDate date)
-    {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
+    private String monthYearFromDate(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월");
         return date.format(formatter);
     }
 
 
-/* 액티비티에서의 onClick
-    public void previousMonthAction(View view)
-    {
-        selectedDate = selectedDate.minusMonths(1);
-        setMonthView();
-    }
+    /* 액티비티에서의 onClick
+        public void previousMonthAction(View view)
+        {
+            selectedDate = selectedDate.minusMonths(1);
+            setMonthView();
+        }
 
-    public void nextMonthAction(View view)
-    {
-        selectedDate = selectedDate.plusMonths(1);
-        setMonthView();
-    }
-*/
+        public void nextMonthAction(View view)
+        {
+            selectedDate = selectedDate.plusMonths(1);
+            setMonthView();
+        }
+    */
     //달력 칸이 눌렸을 때
     @Override
-    public void onItemClick(int position, String dayText)
-    {
-        if(!dayText.equals(""))
-        {
-            String message = "Selected Date " + dayText + " " + monthYearFromDate(selectedDate);
-            //Intent intent = new Intent(this, diary.class);
-            //intent.putExtra("data", dayText); //'문자'라는 이름으로 main_text 전달
-            //startActivity(intent);
+    public void onItemClick(int position, String dayText) {
+        if (!dayText.equals("")) {
+            String message = "Selected Date " + monthYearFromDate(selectedDate) + " " + dayText + "일";
 
             Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
             //setContentView(R.layout.diary);
+
+
+            Bundle bundle = new Bundle(); // 번들을 통해 값 전달
+            bundle.putString("date", monthYearFromDate(selectedDate) + " " + dayText + "일");//번들에 넘길 값 저장
+
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+            DiaryFragment diaryFragment = new DiaryFragment();//프래그먼트2 선언
+            diaryFragment.setArguments(bundle);//번들을 프래그먼트2로 보낼 준비
+            transaction.replace(R.id.container, diaryFragment);
+            transaction.commit();
+
+            //((MainActivity)getActivity()).replaceFragment(DiaryFragment.newInstance());
+            //열심히 코드 썼는데 이거 아니여도 transaction.replace(R.id.container, diaryFragment); 로 화면 옮겨지네요,,
+
         }
     }
-
 }

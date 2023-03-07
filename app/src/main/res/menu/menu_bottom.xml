@@ -7,7 +7,7 @@
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_toc_24"
-        android:title="CHECKLIST" />
+        android:title="MATE" />
     <item
         android:id="@+id/tab2"
         app:showAsAction="ifRoom"

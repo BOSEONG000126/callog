@@ -11,6 +11,7 @@ public class UserAccount {
     private String signbirth3;
 
     public UserAccount() { }
+
     public  String getIdToken() {return idToken;}
     public void setIdToken(String idToken) {this.idToken = idToken;}
 

@@ -6,11 +6,20 @@
     android:layout_height="match_parent"
     >
 
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
     <RelativeLayout
         android:id="@+id/topLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
         android:padding="4dp">
 
         <TextView
@@ -47,73 +56,22 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/contentsInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:textSize="32sp"
-                    android:hint="내용 입력"
-                    />
-
                 <ImageView
-                    android:id="@+id/pictureImageView"
+                    android:id="@+id/PictureOut"
                     android:layout_width="match_parent"
-                    android:layout_height="291dp"
-                    android:layout_margin="8dp"
-                    />
+                    android:layout_height="400dp"
+                    android:layout_margin="8dp" />
 
-                <EditText
-                    android:id="@+id/contentsInput2"
+                <TextView
+                    android:id="@+id/ContentsOutput"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="내용 입력"
-                    android:maxLines="1"
-                    android:textSize="32sp" />
+                    android:layout_height="match_parent"
+                    android:text="TextView"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/bottomLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="60dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp">
-
-        <Button
-            android:id="@+id/saveButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="20dp"
-
-            android:text="저장"
-            android:textColor="@android:color/white"/>
-
-        <Button
-            android:id="@+id/deleteButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-
-            android:text="삭제"
-            android:textColor="@android:color/white"/>
-
-        <Button
-            android:id="@+id/closeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-
-            android:text="닫기"
-            android:textColor="@android:color/white" />
 
     </RelativeLayout>
 
