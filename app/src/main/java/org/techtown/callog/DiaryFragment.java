@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,6 +26,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -39,13 +45,53 @@ public class DiaryFragment extends Fragment {
     private String day;
     private CalendarDiaryBinding binding;
     private ImageView picture;
-    private String contensoutput;
+    private FirebaseAuth mFirebaseAuth; // 파이어베이스 인증
+    private DatabaseReference mDatabaseRef; //실시간 데이터베이스
 
     public static DiaryFragment newInstance() {
         return new DiaryFragment();
     }
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("Image");
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String email = user.getEmail();
+        picture = binding.PictureOut;
+
+
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storagereference = storage.getReference();
+        StorageReference pathReference = storagereference.child(email + "." + day);
+        pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(DiaryFragment.this).load(uri).into(picture);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String value = snapshot.getValue(String.class);
+                binding.ContentsOutput.setText(value);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        mDatabaseRef.child(user.getUid()).child(day).child("text").addValueEventListener(postListener);
+
 
         day = getArguments().getString("date");// 프래그먼트1에서 받아온 값 넣기
         binding.toolbar.inflateMenu(R.menu.menu_toolbar);
@@ -81,30 +127,6 @@ public class DiaryFragment extends Fragment {
             day = getArguments().getString("date");// 프래그먼트1에서 받아온 값 넣기
             binding.dateTextView.setText(day);
         }
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String email = user.getEmail();
-        picture = binding.PictureOut;
-
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storagereference = storage.getReference();
-        StorageReference pathReference = storagereference.child(email + "." + day);
-        pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(DiaryFragment.this).load(uri).into(picture);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
-        });
-
-
-
-
-
 
 
 

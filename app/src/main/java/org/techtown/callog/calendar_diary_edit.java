@@ -121,7 +121,7 @@ public class calendar_diary_edit extends Fragment {
                             Model model =new Model(uri.toString() , intext); //uri
                             String modelld = root.push().getKey(); //키
 
-                            root.child(modelld).setValue(model);
+                            root.child(user.getUid()).child(day).setValue(model);
                             progressBar.setVisibility(View.INVISIBLE);
 
                         }
