@@ -1,5 +1,6 @@
 package org.techtown.callog;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -12,7 +13,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
 
     HomeFragment homefragment;
-    ChecklistFragment checklistfragment;
+    //ChecklistFragment checklistfragment;
+    todo_list todoList;
     MypageFragment mypagefragment;
 
     @Override
@@ -21,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         homefragment = new HomeFragment();
-        checklistfragment = new ChecklistFragment();
+        //checklistfragment = new ChecklistFragment();
+        todo_list todoList =new todo_list();
         mypagefragment = new MypageFragment();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container, homefragment).commit();
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.tab1:
                         Toast.makeText(getApplicationContext(), "첫 번째 탭 선택됨", Toast.LENGTH_LONG).show();
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.container, checklistfragment).commit();
+                                .replace(R.id.container, todoList).commit();
 
                         return true;
                     case R.id.tab2:

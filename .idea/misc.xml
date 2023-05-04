@@ -3,7 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/hamea/AndroidStudioProjects/callog/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/hamea/AndroidStudioProjects/callog/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Users/hamea/AndroidStudioProjects/callog/app/src/main/res/layout/activity_main.xml" value="0.536" />
+        <entry key="..\:/Users/hamea/AndroidStudioProjects/callog/app/src/main/res/layout/activity_signup.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/hamea/AndroidStudioProjects/callog/app/src/main/res/layout/calendar_diary.xml" value="0.264" />
+        <entry key="..\:/Users/hamea/AndroidStudioProjects/callog/app/src/main/res/layout/calendar_diary_edit.xml" value="0.209375" />
+        <entry key="..\:/Users/hamea/AndroidStudioProjects/callog/app/src/main/res/layout/fragment_1.xml" value="0.19550173010380623" />
+        <entry key="..\:/Users/hamea/AndroidStudioProjects/callog/app/src/main/res/layout/fragment_2.xml" value="0.1" />
+        <entry key="..\:/Users/hamea/AndroidStudioProjects/callog/app/src/main/res/layout/fragment_3.xml" value="0.209375" />
+        <entry key="..\:/Users/hamea/AndroidStudioProjects/callog/app/src/main/res/layout/fragment_checklist.xml" value="0.1" />
+        <entry key="..\:/Users/hamea/AndroidStudioProjects/callog/app/src/main/res/layout/fragment_todo_list.xml" value="0.1" />
+        <entry key="..\:/Users/hamea/AndroidStudioProjects/callog/app/src/main/res/layout/todo_item.xml" value="0.14074074074074075" />
+        <entry key="..\:/Users/hamea/AndroidStudioProjects/callog/app/src/main/res/layout/todolist_item.xml" value="0.10462962962962963" />
+        <entry key="..\:/Users/hamea/AndroidStudioProjects/callog/app/src/main/res/menu/menu_bottom.xml" value="0.1" />
+        <entry key="..\:/Users/hamea/AndroidStudioProjects/callog/app/src/main/res/mipmap-anydpi-v26/ic_callog_icon.xml" value="0.1" />
+        <entry key="..\:/Users/hamea/AndroidStudioProjects/callog/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/drawable/ic_baseline_toc_24.xml" value="0.1" />
         <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/drawable/ic_baseline_today_24.xml" value="0.1" />
         <entry key="..\:/Users/kbd11/AndroidStudioProjects/callog/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />

@@ -42,14 +42,14 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="8dp"
+            android:layout_alignParentTop="true"
             android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"
-            android:layout_alignParentTop="true"
             app:cardBackgroundColor="#FFFFFFFF"
             app:cardCornerRadius="10dp"
-            app:cardElevation="5dp" >
+            app:cardElevation="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
