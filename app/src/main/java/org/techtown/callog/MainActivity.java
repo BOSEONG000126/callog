@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         homefragment = new HomeFragment();
         //checklistfragment = new ChecklistFragment();
-        todo_list todoList =new todo_list();
+        todoList =new todo_list();
         mypagefragment = new MypageFragment();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container, homefragment).commit();
